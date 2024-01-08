@@ -10,6 +10,10 @@ a {
   color: inherit;
 }
 
+.out {
+  color:rgb(122, 255, 255);
+}
+
 .menu-link {
   padding: 0 1.3vw;
   -webkit-box-align: center;
@@ -20,7 +24,7 @@ a {
 
 
 .roller{
-  height: 3rem;
+  height: 2rem;
   position: relative;
   overflow: hidden; 
   width: 100%;
@@ -40,9 +44,17 @@ a {
     top:0;
   }
   33%{
-    top: -3rem;    
+    top: -2rem;    
   }
   55%{
-    top: -6rem;
+    top: -4rem;
   }
+}
+
+.c7 {
+  font-size: larger;
+}
+
+.c2 {
+  font-weight: bold;
 }
