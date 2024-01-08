@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include("partials/styleTags")%>
+    <script src="/index.js" defer></script>
+    <title>Ryan Whitehead</title>
+  </head>
+  <body>
+    <%- include("partials/navbar")%>
+    <br />
+      <div class="flex-row container-fluid">
+        <div class="col-md-2 index-btn-group mt-1">
+          <div class="row">
+            
+          </div>
+        </div>
+
+        <div class="col-md m-1 ms-2 me-0">
+          <h1>
+            <div class="roller">
+              <span id="rolltext">COMPUTER ENGINEERING<br/>
+              SOFTWARE DESIGN<br/>
+              EMBEDDED SYSTEMS
+            </div>
+          </h1>
+          
+        </div>
+
+        <div class="col-md-2 index-btn-group me-3">
+            <%- include("partials/contributions")%>
+        </div>
+    </div>
+  </body>
+</html>
