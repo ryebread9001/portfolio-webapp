@@ -1,0 +1,84 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+
+#canvas1 {
+    border: 5px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#menu1{
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    color: white;
+    position: absolute; 
+    z-index: 1;
+    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#score-box{
+    color: white;
+
+}
+
+.score-table {
+    color: white;
+
+}
+
+.score-table th, .score-table td {
+    padding: 10px;
+    font-size: small;
+}
+
+.place1 {
+    border-style: solid !important;
+    border-color: #d4af377c !important;
+    background: linear-gradient(-45deg, #8b1515, #6285127c, #186e887c, #54157e, #83143e);
+    background-size: 400% 400%;
+    animation: gradient 4s ease infinite !important;
+}
+
+.place2 {
+    border-style: solid !important;
+    border-color: #c0c0c079 !important;
+    background: linear-gradient(-45deg, #615e5e46, #9b9a9a59, #b8b3b36b, #94939470, #c0c0c054);
+    background-size: 200% 200%;
+    animation: gradient 7s ease infinite !important;
+}
+
+.place3 {
+    border-style: solid !important;
+    border-color: #cd803273 !important;
+    background: linear-gradient(-45deg, #ac6f325d, #cd803285, #df904273, #a56a2e46);
+    background-size: 200% 200%;
+    animation: gradient 7s ease infinite !important;
+}
+
+.week-high1 {
+    border-style: solid !important;
+    border-color: #d4af377c !important;
+    background: linear-gradient(-45deg, #98989800, #4a4f4030, #5f707542, #4b474e3d, #5b4d5200);
+    background-size: 400% 400%;
+    animation: gradient 20s ease infinite !important;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+  }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include("partials/styleTags")%>
+    <link rel="stylesheet" href="/jumper/style.css">
+    <title>Ryan Whitehead</title>
+  </head>
+  <body>
+    <div class="flex-row container-fluid">
+        <%- include("partials/navbar")%>
+        <br/><hr>
+        <div class="row">
+            <div class="col">
+                <h3 class="text-light">Top Scores</h3>
+                <div id="high-scores" class="score-table"></div>
+            </div>
+            <div class="col-9">
+                <div id="score-box"><br>Score: &nbsp;<span id="score-text">0</span></div>
+            </div>
+            <div class="col">
+                <h3 class="text-light">Weekly High Scores</h3>
+                <div id="week-scores" class="score-table"></div>
+            </div>
+            <br>
+            <div class="game" id="game">
+                <div><span id="menu1">press any key to start<br>arrow key up to fly</span></div>
+                <img id="backg" src="jumper/img/sky.jpeg" width="600" height="350" alt="" style="display: none;">
+                <img id="pony" src="jumper/img/pony.png" width="600" height="350" alt="" style="display: none;">
+                <img id="token" src="jumper/img/clover.png" width="600" height="350" alt="" style="display: none;">
+                <img id="trail" src="jumper/img/trail.png" width="600" height="350" alt="" style="display: none;">
+            </div>
+        </div>
+    </div>
+  </body>
+  <script type="module" src="/jumper/main.js"></script>
+</html>

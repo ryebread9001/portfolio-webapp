@@ -6,6 +6,8 @@ const cookieSession = require('cookie-session')
 const helmet = require('helmet')
 const noCache = require('nocache')
 
+const jumperController = require('./controllers/jumperController')
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -52,6 +54,8 @@ app.use(noCache())
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.post('/jumper-score', jumperController.postScore)
+app.get('/jumper-score', jumperController.getScore)
 app.get('/about', function(req, res, next) {
   res.render('about', { title: 'About Me' });
 });
@@ -61,6 +65,10 @@ app.get('/portfolio', function(req, res, next) {
 app.get('/projects', function(req, res, next) {
   res.render('projects', { title: 'Projects' });
 });
+app.get('/breakroom', (req, res) => {
+  console.log('get breakroom')
+  res.render('jumper', { title: 'Unicorn Game' });
+})
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
