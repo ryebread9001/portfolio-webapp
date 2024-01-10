@@ -6,13 +6,15 @@ const cookieSession = require('cookie-session')
 const helmet = require('helmet')
 const noCache = require('nocache')
 
+require('dotenv').config()
+
 const jumperController = require('./controllers/jumperController')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-
+console.log(process.env.API_KEY);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

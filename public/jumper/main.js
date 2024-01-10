@@ -29,28 +29,43 @@ let baseURL = window.location.href == "https://ryanryanryan.net/breakroom" ? "ht
 
 
 
-function sendScore(score) {
+function sendScore(score, name) {
 	var xhr = new XMLHttpRequest();
 	xhr.open('POST', baseURL + 'jumper-score', true);
-	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('Content-type', 'application/json');
+	xhr.setRequestHeader('Accept', 'application/json');
 	xhr.onload = function () {
 		// do something to response
-		console.log(this.responseText);
+		console.dir(this.responseText);
 	};
-	xhr.send(`score=${score}`);
+	let n = name ?? "Ryan Whitehead"
+	xhr.send(JSON.stringify({"name": n, "score": score}));
 }
 
 function getScore() {
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', baseURL + 'jumper-score', true);
-	xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	xhr.setRequestHeader('Content-type', 'application/json');
+	xhr.setRequestHeader('Accept', 'application/json');
 	xhr.onload = function () {
-		let spl = this.responseText.split("&");
-		createTable(spl[0]);
-		createWeeklyTable(spl[1]);
+		let spl = this.responseText;
+		console.dir(JSON.parse(this.responseText));
+		createTable(spl);
+		// createWeeklyTable(spl);
 	};
 	xhr.send();
+	
 }
+
+function compare( a, b ) {
+	if ( a.score < b.score ){
+	  return 1;
+	}
+	if ( a.score > b.score ){
+	  return -1;
+	}
+	return 0;
+  }
 
 function createTable(scores) {
 	if (document.getElementById("high") != null) document.getElementById("high").remove();
@@ -65,15 +80,15 @@ function createTable(scores) {
     tr.appendChild(scoreh);
 	table.append(tr);
 	let data = JSON.parse(scores);
-	data = Object.entries(data).sort((a,b)=>b[1]-a[1]); // descending
+	data.documents.sort( compare ); // descending
 	let count = 0;
-	for (const item of data) {
+	for (const item of data.documents) {
 		if (count > 15) break;
 		let tr = document.createElement("tr");
 		let td1 = document.createElement("td");
-		td1.innerText = item[0];
+		td1.innerText = item.name;
 		let td2 = document.createElement("td");
-		td2.innerText = item[1];
+		td2.innerText = item.score;
 		tr.appendChild(td1);
 		tr.appendChild(td2);
 		if (count < 3) {
@@ -122,18 +137,19 @@ function createWeeklyTable(scores) {
 	weeklyHighScores.appendChild(table);
 }
 
-// getScore();
+getScore();
 
 const startText = document.getElementById("menu1");
 const scoreText = document.getElementById("score-text");
-
+const canvasContainer = document.getElementById("canvas-container");
 
 const canvas = document.createElement('canvas');
-
+canvasContainer.appendChild(canvas);
 canvas.id = "canvas1";
 const score = document.createElement('p');
 canvas.width = 600;
 canvas.height = 350;
+canvas.classList.add('col-xs-1', 'text-center');
 
 var img = document.getElementById("backg");
 
@@ -150,7 +166,7 @@ trail.width = trailSize;
 trail.height = trailSize;
 
 
-document.body.appendChild(canvas);
+//document.body.appendChild(canvas);
 
 const context = canvas.getContext('2d');
 context.fillStyle = 'white';
@@ -425,8 +441,9 @@ function drawGame() {
 				&& enemies[i].y > (player1.y-enemies[i].size)
 				&& enemies[i].y < (player1.y+player1.mass)) {
 					scoreText.innerText = player1.score;
-					// sendScore(player1.score);
-					// getScore();
+					//sendScore(player1.score);
+					// TODO get score posting working
+					getScore();
 					player1.health -= 1;
                     enemies[i].reset();
 					reset();
