@@ -441,7 +441,7 @@ function drawGame() {
 				&& enemies[i].y > (player1.y-enemies[i].size)
 				&& enemies[i].y < (player1.y+player1.mass)) {
 					scoreText.innerText = player1.score;
-					//sendScore(player1.score);
+					sendScore(player1.score);
 					// TODO get score posting working
 					getScore();
 					player1.health -= 1;

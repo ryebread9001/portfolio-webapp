@@ -26,8 +26,7 @@ async function callDB(endpoint, data) {
 
     await axios(config)
         .then(function (response) {
-            console.log(JSON.stringify(response.data))
-            console.dir(response.data)
+            // console.dir(response.data)
             obj = response.data
         })
         .catch(function (error) {
@@ -41,6 +40,7 @@ async function callDB(endpoint, data) {
 
 module.exports.postScore = async (req, res, next) => {
     try {
+        let result;
         var dbPosted = false;
         var data = {
             "collection": collection,
@@ -48,20 +48,28 @@ module.exports.postScore = async (req, res, next) => {
             "dataSource": dataSource,
             "filter": {"name": req.body.name}
         };
-        let prev = await callDB('findOne', JSON.stringify(data)).document
+        console.log(data)
+        let prev = (await callDB('findOne', JSON.stringify(data))).document
+        console.log(prev)
         if (prev) {
-            if (prev.document.score < req.body.score) {
+            console.log('prev is true')
+            console.log(prev.score < req.body.score)
+            if (prev.score < req.body.score) {
+                console.log("here")
                 // edit existing document
                 data["update"] = { 
                     "$set": {
                         "score": req.body.score,
-                        "createdAt": { "$date": { "$numberLong": new moment().unix() }}
+                        "createdAt": new Moment().format('LLLL')
                     }
                 }
-                await callDB('updateOne', JSON.stringify(data))
+                console.log(data["update"])
+                result = (await callDB('updateOne', JSON.stringify(data)))
+                console.log(result)
                 dbPosted = true;
             }
         } else {
+            console.log('prev is false')
             // create new document for user
             var dataInsert = JSON.stringify({
                 "collection": collection,
@@ -70,10 +78,11 @@ module.exports.postScore = async (req, res, next) => {
                 "document": {
                     "name": req.body.name,
                     "score": req.body.score,
-                    "createdAt": { "$date": { "$numberLong": new moment().unix() }}
+                    "createdAt": new Moment().format('LLLL')
                 }
             });
-            await callDB('insertOne', dataInsert)
+            result = (await callDB('insertOne', dataInsert))
+            console.log(result)
             dbPosted = true
         }
                     
@@ -92,8 +101,6 @@ module.exports.getScore = async (req, res, next) => {
             "filter": {}
         });
         let result = (await callDB('find', data))
-        console.log(result)
-        console.log("??????")
         res.send(result)
     } catch (err) {
         next(err)
