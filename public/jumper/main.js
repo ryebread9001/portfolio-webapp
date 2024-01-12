@@ -24,7 +24,7 @@ const tokenStartNum = 2;
 const highScores = document.getElementById("high-scores");
 const weeklyHighScores = document.getElementById("week-scores");
 var keyPressed = false;
-let baseURL = window.location.href == "https://ryanryanryan.net/breakroom" ? "https://ryanryanryan.net/" : "http://localhost:3000/";
+let baseURL = window.location.href.includes("https://ryanryanryan.net/breakroom") ? "https://ryanryanryan.net/" : "http://localhost:3000/";
 let username = document.getElementById('username-text').innerText != '' ? document.getElementById('username-text').innerText : "Unknown User";
 
 const userSubmit = document.getElementById('userSubmit');
