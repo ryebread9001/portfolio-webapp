@@ -1,5 +1,4 @@
 /* TODO:
-	--Today's high scores table-- (we need to post date of score)
 	--Invincible mode on token collect--
 	--Enemy art--
 	--Move curr score?--
@@ -26,8 +25,19 @@ const highScores = document.getElementById("high-scores");
 const weeklyHighScores = document.getElementById("week-scores");
 var keyPressed = false;
 let baseURL = window.location.href == "https://ryanryanryan.net/breakroom" ? "https://ryanryanryan.net/" : "http://localhost:3000/";
+let username = document.getElementById('username-text').innerText != '' ? document.getElementById('username-text').innerText : "Unknown User";
 
+const userSubmit = document.getElementById('userSubmit');
+const usernameElem = document.getElementById('username');
 
+userSubmit.addEventListener('click', sendWithName )
+
+function sendWithName() {
+	username = usernameElem.value;
+	sendScore(scoreText.innerText, usernameElem.value);
+	$('#modalCenter').modal('hide');
+	getScore();
+}
 
 function sendScore(score, name) {
 	var xhr = new XMLHttpRequest();
@@ -441,9 +451,12 @@ function drawGame() {
 				&& enemies[i].y > (player1.y-enemies[i].size)
 				&& enemies[i].y < (player1.y+player1.mass)) {
 					scoreText.innerText = player1.score;
-					sendScore(player1.score);
-					// TODO get score posting working
-					getScore();
+					if (username != "Unknown User") {
+						sendScore(scoreText.innerText, username);
+						getScore();
+					} else {
+						$('#modalCenter').modal('show');
+					}
 					player1.health -= 1;
                     enemies[i].reset();
 					reset();
@@ -512,23 +525,31 @@ function setScore() {
 					document.getElementById("scoreListGrabbed").innerHTML = scoreListParsed; */          
 };
 
-document.addEventListener('keydown', function(event) {
+function handleDown(event) {
+	/*
+	left = 37
+	up = 38
+	right = 39
+	down = 40
+	*/
+	//keyPressed = true;
+	let keyCode = event.keyCode;
+	if (player1.health < 1 && (keyCode === 49 || keyCode === 38) && !$('#modalCenter').hasClass('in')) {
+		player1.health++;
+		startText.style = "display:none";
+	}
+	if ((keyCode === 49 || keyCode === 38)) {
+		keyPressed = true;
+	}
+}
 
-/*
-left = 37
-up = 38
-right = 39
-down = 40
-*/
-  //keyPressed = true;
-  let keyCode = event.keyCode;
-  if (player1.health < 1) {
-	player1.health++;
-	startText.style = "display:none";
-  }
-  if ((keyCode === 49 || keyCode === 38)) {
-  	keyPressed = true;
-  }
+
+document.addEventListener('keydown', handleDown );
+
+document.addEventListener("touchstart", handleDown );
+
+document.addEventListener("touchend", function(e) { 
+	keyPressed = false;
 });
 
 window.onkeyup = function(e) { 

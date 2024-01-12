@@ -14,7 +14,6 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-console.log(process.env.API_KEY);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -37,7 +36,7 @@ app.use(helmet({
       'default-src': ["'self'"],
       'connect-src': ["'self'", 'https://api.bloggify.net/gh-calendar/'],
       'style-src-elem': ["'self'", 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css', 'https://fonts.googleapis.com/css2'],
-      'script-src-elem': ["'self'", 'https://cdn.jsdelivr.net/npm/chart.js', 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js'],
+      'script-src-elem': ["'self'", 'https://cdn.jsdelivr.net/npm/chart.js', 'https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js', 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', 'https://code.jquery.com/jquery-3.4.1.slim.min.js'],
       'script-src-attr': ["'self'"]
     }
   }
@@ -69,7 +68,12 @@ app.get('/projects', function(req, res, next) {
 });
 app.get('/breakroom', (req, res) => {
   console.log('get breakroom')
-  res.render('jumper', { title: 'Unicorn Game' });
+  let user = ""
+  if (req.session.name) {
+    user = req.session.name
+  }
+  console.log(`user: ${user}`)
+  res.render('jumper', { title: 'Unicorn Game', username: user });
 })
 app.use('/users', usersRouter);
 
@@ -90,5 +94,5 @@ app.use(function(err, req, res, next) {
 });
 
 app.listen(3000);
-
+console.log('App listening on Port 3000');
 module.exports = app;

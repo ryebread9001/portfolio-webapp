@@ -39,6 +39,12 @@ a {
   animation: slide 5s infinite;  
 }
 
+@media screen and (max-width: 1250px) {
+  .roller #rolltext {
+      display: none !important;
+  }
+}
+
 @keyframes slide {
   0%{
     top:0;

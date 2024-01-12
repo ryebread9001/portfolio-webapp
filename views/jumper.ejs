@@ -6,6 +6,7 @@
     <%- include("partials/styleTags")%>
     <link rel="stylesheet" href="/jumper/style.css">
     <title>Ryan Whitehead</title>
+    <div hidden><span id="username-text"><% if (username) { %><%=username%><% } %></span></div>
   </head>
   <body>
     <div class="flex-row container-fluid">
@@ -31,6 +32,26 @@
                 <img id="token" src="jumper/img/clover.png" width="600" height="350" alt="" style="display: none;">
                 <img id="trail" src="jumper/img/trail.png" width="600" height="350" alt="" style="display: none;">
             </div>
+        </div>
+
+        <div class="modal fade bg-transparent" id="modalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content bg-dark border border-white">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Set Name</h5>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+              <form>
+                <div class="modal-body">
+                  <input type="text" id="username" name="username"><br>
+                </div>
+                <div class="modal-footer">
+                  
+                  <button id="userSubmit" type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
     </div>
   </body>

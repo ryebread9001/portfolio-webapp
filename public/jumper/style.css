@@ -34,6 +34,12 @@
     transform: translate(-50%, -50%);
 }
 
+#high-scores{
+    max-height:55vh;
+    overflow: auto;
+
+}
+
 #score-box{
     color: white;
 
