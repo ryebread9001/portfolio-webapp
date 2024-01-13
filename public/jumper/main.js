@@ -456,6 +456,7 @@ function drawGame() {
 						getScore();
 					} else {
 						$('#modalCenter').modal('show');
+						document.getElementById('username').focus();
 					}
 					player1.health -= 1;
                     enemies[i].reset();

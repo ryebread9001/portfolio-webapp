@@ -1,6 +1,5 @@
 const Moment = require('moment')
 var axios = require('axios');
-var sanitizer = require('sanitize')();
 
 const dbUrl = 'https://us-west-2.aws.data.mongodb-api.com/app/data-wcvum/endpoint/data/v1/'
 const db = 'portfolio_data'
@@ -27,38 +26,46 @@ async function callDB(endpoint, data) {
 
     await axios(config)
         .then(function (response) {
-            // console.dir(response.data)
+            if (endpoint == 'updateOne') console.dir(response.data)
             obj = response.data
         })
         .catch(function (error) {
             console.log(error)
             obj = error
         });
-
     return obj
 }
 
+function isNumeric(str) {
+    if (typeof str != "string") return false // we only process strings!  
+    return !isNaN(str) && // use type coercion to parse the _entirety_ of the string (`parseFloat` alone does not do this)...
+           !isNaN(parseFloat(str)) // ...and ensure strings of whitespace fail
+  }
 
 module.exports.postScore = async (req, res, next) => {
     try {
-        console.log('req.session:')
-        console.log(req.session)
-        if (!req.session.name) {
-            var name = sanitizer.value(req.body.name, 'string');
-            req.session.name = name;
+        let name = req.body.name
+        //console.log('req.session:')
+        //console.log(req.session)
+        if (!Object.keys(req.session).includes('name')) {
+            console.log("here1")
+            req.session.name = name 
         }
-        if (req.body.score < 50 && !isNaN(req.body.score)) {
+        //console.log(req.body.score < 50);
+        //console.log(isNumeric(req.body.score));
+        if (req.body.score < 50 && isNumeric(req.body.score)) {
+            console.log("here2");
             let result;
             var dbPosted = false;
             var data = {
                 "collection": collection,
                 "database": db,
                 "dataSource": dataSource,
-                "filter": {"name": req.body.name}
+                "filter": {"name": name}
             };
-            console.log(data)
+            //console.log(data)
             let prev = (await callDB('findOne', JSON.stringify(data))).document
-            console.log(prev)
+            console.log('prev: ', prev)
             if (prev) {
                 console.log('prev is true')
                 console.log(prev.score < req.body.score)
@@ -84,7 +91,7 @@ module.exports.postScore = async (req, res, next) => {
                     "database": db,
                     "dataSource": dataSource,
                     "document": {
-                        "name": req.body.name,
+                        "name": name,
                         "score": req.body.score,
                         "createdAt": new Moment().format('LLLL')
                     }

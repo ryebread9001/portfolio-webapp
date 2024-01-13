@@ -5,6 +5,7 @@ var logger = require('morgan');
 const cookieSession = require('cookie-session')
 const helmet = require('helmet')
 const noCache = require('nocache')
+const { check } = require('express-validator');
 
 require('dotenv').config()
 
@@ -55,7 +56,8 @@ app.use(noCache())
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.post('/jumper-score', jumperController.postScore)
+//
+app.post('/jumper-score', [check('name').isLength({ min: 3 }).trim().escape()], jumperController.postScore)
 app.get('/jumper-score', jumperController.getScore)
 app.get('/about', function(req, res, next) {
   res.render('about', { title: 'About Me' });
