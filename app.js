@@ -73,7 +73,7 @@ app.get('/breakroom', (req, res) => {
   let user = req.session.name ? req.session.name : "";
   res.render('jumper', { title: 'Unicorn Game', username: user });
 })
-app.use('/users', usersRouter);
+app.use('/users', [check('name').isLength({ min: 3 }).trim().escape()], usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
