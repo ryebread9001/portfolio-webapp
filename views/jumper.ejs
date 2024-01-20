@@ -6,27 +6,27 @@
     <%- include("partials/styleTags")%>
     <link rel="stylesheet" href="/jumper/style.css">
     <title>Ryan Whitehead</title>
-    <div hidden><span id="username-text"><% if (username) { %><%=username%><% } %></span></div>
+    <div hidden></div>
   </head>
-  <body>
+  <body class="">
     <div class="flex-row container-fluid">
         <%- include("partials/navbar")%>
-        <br/><hr>
+        <hr>
         <div class="row">
-            <div class="col">
-                <h3 class="text-light">Top Scores</h3>
-                <div id="high-scores" class="score-table"></div>
+            
+            <div class="col-md-8" id="canvas-container">
+                <div id="score-box" class="col-xs-1 text-center"><div><span id="menu1"><i>press the </i>[↑]<i> key to begin...</i></span></div><span id="username-text"><% if (username) { %><%=username%><% } %> </span><br>Score: &nbsp;<span id="score-text">0</span></div><br>
             </div>
-            <div class="col-md-8 mx-auto" id="canvas-container">
-                <div id="score-box" class="col-xs-1 text-center"><br>Score: &nbsp;<span id="score-text">0</span></div><br>
+            <div class="col score-cont">
+              <h3 class="text-light">Top Scores</h3>
+              <div id="high-scores" class="score-table mx-auto"></div>
             </div>
-            <div class="col">
-                <h3 class="text-light">Weekly High Scores</h3>
-                <div id="week-scores" class="score-table"></div>
+            <div class="col score-cont ">
+              <h3 class="text-light">Weekly Best</h3>
+              <div id="week-scores" class="score-table mx-auto"></div>
             </div>
             <br>
             <div class="game" id="game">
-                <div><span id="menu1">press any key to start<br>arrow key up to fly</span></div>
                 <img id="backg" src="jumper/img/sky.jpeg" width="600" height="350" alt="" style="display: none;">
                 <img id="pony" src="jumper/img/pony.png" width="600" height="350" alt="" style="display: none;">
                 <img id="token" src="jumper/img/clover.png" width="600" height="350" alt="" style="display: none;">

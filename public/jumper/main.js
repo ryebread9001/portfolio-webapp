@@ -32,8 +32,24 @@ const usernameElem = document.getElementById('username');
 
 userSubmit.addEventListener('click', sendWithName )
 
-function sendWithName() {
+function setNameOnCookie(name) {
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', baseURL + 'users', true);
+	xhr.setRequestHeader('Content-type', 'application/json');
+	xhr.setRequestHeader('Accept', 'application/json');
+	xhr.onload = function () {
+		// do something to response
+		console.log(this.responseText);
+	};
+	let n = name ?? "Ryan Whitehead"
+	xhr.send(JSON.stringify({"name": n}));
+	console.log(xhr);
+}
+
+function sendWithName(event) {
+	event.preventDefault();
 	username = usernameElem.value;
+	setNameOnCookie(usernameElem.value);
 	sendScore(scoreText.innerText, usernameElem.value);
 	$('#modalCenter').modal('hide');
 	getScore();
@@ -50,6 +66,7 @@ function sendScore(score, name) {
 	};
 	let n = name ?? "Ryan Whitehead"
 	xhr.send(JSON.stringify({"name": n, "score": score}));
+	console.log(xhr);
 }
 
 function getScore() {
@@ -61,21 +78,15 @@ function getScore() {
 		let spl = this.responseText;
 		console.dir(JSON.parse(this.responseText));
 		createTable(spl);
-		// createWeeklyTable(spl);
+		createWeeklyTable(spl);
 	};
 	xhr.send();
 	
 }
 
 function compare( a, b ) {
-	if ( a.score < b.score ){
-	  return 1;
-	}
-	if ( a.score > b.score ){
-	  return -1;
-	}
-	return 0;
-  }
+	return b.score - a.score;
+}
 
 function createTable(scores) {
 	if (document.getElementById("high") != null) document.getElementById("high").remove();
@@ -125,15 +136,20 @@ function createWeeklyTable(scores) {
     tr.appendChild(scoreh);
 	table.append(tr);
 	let data = JSON.parse(scores);
-	data = Object.entries(data).sort((a,b)=>b[1].score-a[1].score); // descending
+	console.log(data);
+	data.documents = data.documents.filter((el) => el.week);
+	data.documents.sort( (a,b)=>b.week.score - a.week.score ); // descending
+	console.log(data);
+	
+	console.log(data);
 	let count = 0;
-	for (const item of data) {
+	for (const item of data.documents) {
 		if (count > 15) break;
 		let tr = document.createElement("tr");
 		let td1 = document.createElement("td");
-		td1.innerText = item[0];
+		td1.innerText = item.name;
 		let td2 = document.createElement("td");
-		td2.innerText = item[1].score;
+		td2.innerText = item.week.score;
 		tr.appendChild(td1);
 		tr.appendChild(td2);
 		if (count < 3) {
@@ -499,6 +515,8 @@ function renderMenu() {
 function reset() {
 	scrollSpeed = 1;
 	startText.style = "display:";
+	document.body.style.height = "100%;"
+	document.body.style.overflow = "hidden;"
 	//scoreText.innerText = "0";
 	imgx1 = 0;
 	imgx2 = imgx1+600;
@@ -538,6 +556,8 @@ function handleDown(event) {
 	if (player1.health < 1 && (keyCode === 49 || keyCode === 38) && !$('#modalCenter').hasClass('in')) {
 		player1.health++;
 		startText.style = "display:none";
+		document.body.style.height = "";
+		document.body.style.overflow = "";
 	}
 	if ((keyCode === 49 || keyCode === 38)) {
 		keyPressed = true;

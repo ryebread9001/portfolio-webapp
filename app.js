@@ -70,11 +70,7 @@ app.get('/projects', function(req, res, next) {
 });
 app.get('/breakroom', (req, res) => {
   console.log('get breakroom')
-  let user = ""
-  if (req.session.name) {
-    user = req.session.name
-  }
-  console.log(`user: ${user}`)
+  let user = req.session.name ? req.session.name : "";
   res.render('jumper', { title: 'Unicorn Game', username: user });
 })
 app.use('/users', usersRouter);

@@ -64,3 +64,15 @@ a {
 .c2 {
   font-weight: bold;
 }
+
+.max-width {
+  max-width: 48rem;
+}
+.px3 {
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+.mx-auto {
+  margin-right: auto;
+  margin-left: auto;
+}
