@@ -39,11 +39,11 @@ function setNameOnCookie(name) {
 	xhr.setRequestHeader('Accept', 'application/json');
 	xhr.onload = function () {
 		// do something to response
-		console.log(this.responseText);
+		// console.log(this.responseText);
 	};
 	let n = name ?? "Ryan Whitehead"
 	xhr.send(JSON.stringify({"name": n}));
-	console.log(xhr);
+	// console.log(xhr);
 }
 
 function sendWithName(event) {
@@ -66,7 +66,7 @@ function sendScore(score, name) {
 	};
 	let n = name ?? "Ryan Whitehead"
 	xhr.send(JSON.stringify({"name": n, "score": score}));
-	console.log(xhr);
+	// console.log(xhr);
 }
 
 function getScore() {
@@ -136,12 +136,12 @@ function createWeeklyTable(scores) {
     tr.appendChild(scoreh);
 	table.append(tr);
 	let data = JSON.parse(scores);
-	console.log(data);
+	// console.log(data);
 	data.documents = data.documents.filter((el) => el.week);
 	data.documents.sort( (a,b)=>b.week.score - a.week.score ); // descending
-	console.log(data);
+	// console.log(data);
 	
-	console.log(data);
+	// console.log(data);
 	let count = 0;
 	for (const item of data.documents) {
 		if (count > 15) break;
@@ -407,12 +407,29 @@ let imgx1 = 0;
 let imgx2 = imgx1+600;
 
 document.body.onload = function() {
+	let frames = 0;
+	let msPrev = window.performance.now();
+	const fps = 60;
+	const msPerFrame = 1000 / fps;	
     function gameLoop() {
         drawGame();
-        window.requestAnimationFrame(gameLoop);
+		window.requestAnimationFrame(gameLoop);
+		frames++;
+		const msNow = window.performance.now();
+  		const msPassed = msNow - msPrev;
+		if (msPassed < msPerFrame) return;
+		const excessTime = msPassed % msPerFrame;
+		msPrev = msNow - excessTime;
+		//console.log(msPassed);
+        
     }
+	setInterval(() => {
+		console.log(frames);
+	}, 1000)
     window.requestAnimationFrame(gameLoop);
 };
+
+
 
 function drawGame() {
 	context.clearRect(0, 0, canvas.width, canvas.height);
@@ -536,7 +553,7 @@ function reset() {
 
 
 function setScore() {
-	console.log("setscore");
+	// console.log("setscore");
 					/* finalScore.push(player1.score);
 					finalScores = JSON.stringify(finalScore);
 					localStorage.setItem("scoreList", finalScores);

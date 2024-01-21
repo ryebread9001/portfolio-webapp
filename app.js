@@ -60,18 +60,18 @@ app.use('/', indexRouter);
 app.post('/jumper-score', [check('name').isLength({ min: 3 }).trim().escape()], jumperController.postScore)
 app.get('/jumper-score', jumperController.getScore)
 app.get('/about', function(req, res, next) {
-  res.render('about', { title: 'About Me' });
+  res.render('about', { title: 'About Me', bubbles: true });
 });
 app.get('/portfolio', function(req, res, next) {
-  res.render('portfolio', { title: 'Portfolio' });
+  res.render('portfolio', { title: 'Portfolio', bubbles: true });
 });
 app.get('/projects', function(req, res, next) {
-  res.render('projects', { title: 'Projects' });
+  res.render('projects', { title: 'Projects', bubbles: true });
 });
 app.get('/breakroom', (req, res) => {
   console.log('get breakroom')
   let user = req.session.name ? req.session.name : "";
-  res.render('jumper', { title: 'Unicorn Game', username: user });
+  res.render('jumper', { title: 'Unicorn Game', username: user, bubbles: false });
 })
 app.use('/users', [check('name').isLength({ min: 3 }).trim().escape()], usersRouter);
 
