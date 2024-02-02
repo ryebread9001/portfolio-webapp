@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <%- include("partials/styleTags")%>
+    <link rel="stylesheet" href="/music/style.css">
+    <script src="/index.js" defer></script>
+    <title>Piano Keys</title>
+  </head>
+  <body class="max-width mx-auto px3 ltr">
+    <%- include("partials/navbar")%>
+      <div class="row container-fluid">
+        <div class="col mt-1">
+          <div class="keyboard">
+            <div id="keyboard-cont">
+              <div class="first-row">
+                  <button id="w" class="keyboard-button black">w</button>
+                  <button id="e" class="keyboard-button black">e</button>
+                  <button id="r" class="keyboard-button spacer"> </button>
+                  <button id="t" class="keyboard-button black">t</button>
+                  <button id="y" class="keyboard-button black">y</button>
+                  <button id="u" class="keyboard-button black">u</button>
+                  <button id="i" class="keyboard-button spacer"> </button>
+                  <button id="o" class="keyboard-button black">o</button>
+                  <button id="p" class="keyboard-button black">p</button>
+                  <button id="" class="keyboard-button spacer"> </button>
+              </div>
+              <div class="second-row">
+                  <button id="a" class="keyboard-button white">a</button>
+                  <button id="s" class="keyboard-button white">s</button>
+                  <button id="d" class="keyboard-button white">d</button>
+                  <button id="f" class="keyboard-button white">f</button>
+                  <button id="g" class="keyboard-button white">g</button>
+                  <button id="h" class="keyboard-button white">h</button>
+                  <button id="j" class="keyboard-button white">j</button>
+                  <button id="k" class="keyboard-button white">k</button>
+                  <button id="l" class="keyboard-button white">l</button>
+                  <button id="º" class="keyboard-button white">;</button>
+                  <button id="þ" class="keyboard-button white">'</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </body>
+  <script src="/music/audiokeys.min.js"></script>
+	<script src="/music-bundle" defer></script>
+</html>

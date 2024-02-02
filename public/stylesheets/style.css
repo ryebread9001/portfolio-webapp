@@ -57,17 +57,28 @@ a {
   }
 }
 
-.c7 {
-  font-size: larger;
+.c9 {
+  font-style: italic;
 }
 
-.c2 {
+.c8 {
   font-weight: bold;
 }
 
-.max-width {
-  max-width: 48rem;
+.c5 {
+  font-size: larger;
 }
+
+.c1 {
+  font-size: xx-large;
+}
+
+ul.c6{
+  list-style-position: inside;
+  margin-left: 10%;
+  max-width: fit-content;
+}
+
 .px3 {
   padding-right: 2rem;
   padding-left: 2rem;

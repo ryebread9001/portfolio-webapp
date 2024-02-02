@@ -23,9 +23,12 @@
     "nocache": "^4.0.0",
     "pug": "^3.0.2",
     "sanitize": "^2.1.2",
-    "string-sanitizer": "^2.0.2"
+    "string-sanitizer": "^2.0.2",
+    "tone": "^14.7.77",
+    "webpack": "^5.90.1"
   },
   "devDependencies": {
-    "@types/cookie-parser": "^1.4.6"
+    "@types/cookie-parser": "^1.4.6",
+    "webpack-cli": "^5.1.4"
   }
 }

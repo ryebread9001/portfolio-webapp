@@ -35,7 +35,7 @@ app.use(helmet({
     useDefaults: true,
     directives: {
       'default-src': ["'self'"],
-      'connect-src': ["'self'", 'https://api.bloggify.net/gh-calendar/'],
+      'connect-src': ["'self'", 'https://tonejs.github.io/audio/casio/'],
       'style-src-elem': ["'self'", 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css', 'https://fonts.googleapis.com/css2'],
       'script-src-elem': ["'self'", 'https://cdn.jsdelivr.net/npm/chart.js', 'https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js', 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', 'https://code.jquery.com/jquery-3.4.1.slim.min.js'],
       'script-src-attr': ["'self'"]
@@ -73,7 +73,17 @@ app.get('/breakroom', (req, res) => {
   let user = req.session.name ? req.session.name : "";
   res.render('jumper', { title: 'Unicorn Game', username: user, bubbles: false });
 })
+app.get('/music', (req, res) => {
+  console.log('get music');
+  res.render('music', { title: 'Piano Keys', bubbles: false });
+})
+app.get('/music-bundle', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/music-bundle.js'));
+})
 app.use('/users', [check('name').isLength({ min: 3 }).trim().escape()], usersRouter);
+app.get('/cassidy', function(req, res, next) {
+  res.send(":>");
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
