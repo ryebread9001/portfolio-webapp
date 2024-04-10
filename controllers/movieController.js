@@ -44,7 +44,7 @@ async function randomActorMovies() {
     let actor = movies[randPerson]
     let maxI = 19;
     let i = 0;
-    while (actor.known_for.find((movie)=>{console.log(movie.title + ": " + isBlacklist(movie) + "\n\n"); return isBlacklist(movie)})) {
+    while (actor.known_for.find((movie)=>{return isBlacklist(movie)})) {
         console.log("not happening");
         actor = movies[getRandomInt(0,19)];
         i++;
@@ -60,9 +60,6 @@ async function randomActorMovies() {
 let badWords = ["sex", "virgin", "porn", "mature"];
 
 function isBlacklist(movie) {
-    console.log("adult: ", movie.adult);
-    console.log("type: ", movie.media_type);
-    console.log("lang: ", movie.original_language);
 
     if (movie.adult || movie.media_type == 'tv' || movie.original_language != 'en') return true;
     let bad = false;
@@ -87,7 +84,6 @@ module.exports.getMovieData = async (req, res, next) => {
             if (!actor) actor = await randomActorMovies();
             
             for (let i = 0; i < 3; i++) {
-                console.log("HERE", i);
                 actor.known_for[i]["name"] = actor.name;
                 actor.known_for[i]["profile_path"] = actor.profile_path;
                 actor.known_for[i]["actor_id"] = actor.id;
