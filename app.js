@@ -10,7 +10,7 @@ const { check } = require('express-validator');
 require('dotenv').config()
 
 const jumperController = require('./controllers/jumperController')
-
+const movieController = require('./controllers/movieController')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -38,7 +38,8 @@ app.use(helmet({
       'connect-src': ["'self'", 'https://tonejs.github.io/audio/casio/'],
       'style-src-elem': ["'self'", 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css', 'https://fonts.googleapis.com/css2'],
       'script-src-elem': ["'self'", 'https://cdn.jsdelivr.net/npm/chart.js', 'https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js', 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', 'https://code.jquery.com/jquery-3.4.1.slim.min.js'],
-      'script-src-attr': ["'self'"]
+      'script-src-attr': ["'self'"],
+      'img-src': ["'self'", 'https://image.tmdb.org/t/p/w185/', 'data:']
     }
   }
 })) // helmet allows for secure headers
@@ -80,6 +81,13 @@ app.get('/music', (req, res) => {
 app.get('/music-bundle', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist/music-bundle.js'));
 })
+app.get('/movies', (req, res) => {
+  console.log('get movies');
+  res.render('movies', { title: 'Movies', bubbles: false });
+})
+//app.post('/movies-data', movieController.postScore)
+app.get('/movies-data', movieController.getMovieData);
+app.get('/actor-data', movieController.getActorData);
 app.use('/users', [check('name').isLength({ min: 3 }).trim().escape()], usersRouter);
 app.get('/cassidy', function(req, res, next) {
   res.send(":>");
@@ -98,7 +106,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error', { title: 'Error Page' });
+  res.render('error', { title: 'Error Page', bubbles: false });
 });
 
 app.listen(3000);

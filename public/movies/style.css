@@ -1,0 +1,91 @@
+.movie-selected {
+    filter: brightness(50%);
+    border:solid rgba(214, 214, 214, 0.46);
+}
+
+.card-text {
+    font-size: smaller;
+}
+
+.card {
+    padding: 0.5rem;
+    margin: 0.25rem;
+    background-color: rgba(98, 98, 98, 0.46);
+    color:white;
+}
+
+.matched {
+    filter: invert(31%) sepia(98%) saturate(1830%) hue-rotate(101deg) brightness(99%) contrast(107%);
+    color: green;
+    opacity: 0.5;
+}
+
+.flash-incorrect {
+    filter: brightness(50%);
+    border:solid rgba(214, 214, 214, 0.46);
+    animation: flash 1s normal forwards ease-in-out;
+}
+
+@keyframes flash {
+    0%{
+        filter: brightness(50%);
+    }
+    33%{
+        filter: invert(30%) sepia(29%) saturate(346%) hue-rotate(355deg) brightness(45%) contrast(111%);
+    }
+    66%{
+        filter: brightness(50%);
+    }
+    100%{
+        filter: invert(30%) sepia(29%) saturate(346%) hue-rotate(355deg) brightness(45%) contrast(111%);
+    }
+  }
+
+.popup {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.popup-content {
+    background-color: #272727a9;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.dot {
+    height: 35px;
+    width: 35px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    background: transparent;
+    color: #00AA66;
+    border-color: #00AA66;
+  }
+
+@media screen and (max-width: 630px) {
+    img {
+        display: none;
+    }
+    p {
+        display:block;
+    }
+    #scoreboard {
+        display: none;
+    }
+    body {
+        padding: 0px;
+    }
+    .card-body {
+        padding: 0px;
+    }
+  
+  }

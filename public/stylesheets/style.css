@@ -43,6 +43,9 @@ a {
   .roller #rolltext {
       display: none !important;
   }
+  body {
+    padding: 10px;
+  }
 }
 
 @keyframes slide {
