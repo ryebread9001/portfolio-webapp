@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%- include("partials/styleTags")%>
+    <script src="/index.js" defer></script>
+    <title>ESP32 Control</title>
+  </head>
+  <body class="max-width mx-auto px3 ltr">
+    <%- include("partials/navbar")%>
+      <div class="row container-fluid">
+        <div class="col mt-1">
+          <button class="btn"id="trigger">TOGGLE</button>
+        </div>
+    </div>
+  </body>
+  <script src="/esp/index.js"></script>
+</html>

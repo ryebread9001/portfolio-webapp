@@ -85,6 +85,21 @@ app.get('/movies', (req, res) => {
   console.log('get movies');
   res.render('movies', { title: 'Movies', bubbles: false });
 })
+
+app.get('/esp-page', (req, res) => {
+  console.log('get esp page');
+  res.render('esp', { title: 'ESP32 Control Page', bubbles: false });
+})
+
+let ESPval = false;
+app.post('/esp-data', async (req, res) => {
+  ESPval = req.query.val;
+  console.log("ESPval: ", ESPval);
+  res.send(200);
+})
+app.get('/esp-data', async (req, res) => {
+  res.send({"result": ESPval});
+})
 //app.post('/movies-data', movieController.postScore)
 app.get('/movies-data', movieController.getMovieData);
 app.get('/actor-data', movieController.getActorData);
