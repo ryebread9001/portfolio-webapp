@@ -93,7 +93,7 @@ app.get('/esp-page', (req, res) => {
 
 let ESPvals = {"red": false,"yellow":false,"green":false,"blue":false,"white":false,"B1":false,"B2":false};
 app.post('/esp-data', async (req, res) => {
-  ESPvals = req.query.vals;
+  ESPvals = req.body;
   // for (const [key, value] of Object.entries(ESPval)) {
   //   console.log(`${key}: ${value}`);
   // }
