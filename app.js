@@ -91,14 +91,17 @@ app.get('/esp-page', (req, res) => {
   res.render('esp', { title: 'ESP32 Control Page', bubbles: false });
 })
 
-let ESPval = false;
+let ESPvals = {"red": false,"yellow":false,"green":false,"blue":false,"white":false,"B1":false,"B2":false};
 app.post('/esp-data', async (req, res) => {
-  ESPval = req.query.val;
-  console.log("ESPval: ", ESPval);
+  ESPvals = req.query.vals;
+  // for (const [key, value] of Object.entries(ESPval)) {
+  //   console.log(`${key}: ${value}`);
+  // }
+  console.log("ESPvals: ", ESPvals);
   res.send(200);
 })
 app.get('/esp-data', async (req, res) => {
-  res.send({"result": ESPval});
+  res.send(ESPvals);
 })
 //app.post('/movies-data', movieController.postScore)
 app.get('/movies-data', movieController.getMovieData);

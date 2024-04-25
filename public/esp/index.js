@@ -1,8 +1,8 @@
 async function main() {
     let response = await fetch('/esp-data');
     let resJSON = await response.json();
-    let isOn = resJSON.result;
-
+    let isOn = resJSON; //let ESPvals = {"red": false,"yellow":false,"green":false,"blue":false,"white":false,"B1":false,"B2":false};
+    console.log(resJSON)
     let trigger = document.getElementById('trigger');
     if (isOn) {
         trigger.classList.add('btn-primary')
