@@ -1,0 +1,3 @@
+[submodule "public/gradient-kit"]
+	path = public/gradient-kit
+	url = https://github.com/ryebread9001/gradient-kit.git

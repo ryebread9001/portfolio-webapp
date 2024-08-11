@@ -85,6 +85,10 @@ app.get('/movies', (req, res) => {
   console.log('get movies');
   res.render('movies', { title: 'Movies', bubbles: false });
 })
+app.get('/gradient', (req, res) => {
+  console.log('get gradient');
+  res.render('gradient', { title: 'Gradient Maker', bubbles: false });
+})
 
 app.get('/esp-page', (req, res) => {
   console.log('get esp page');
